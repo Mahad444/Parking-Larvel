@@ -38,7 +38,7 @@ class UserController extends Controller
         public function auth(Request $request)
         {
             $request->validate([
-                'email' => ['required', 'email' , 'string', 'max:255'],
+                'email' => ['required', 'email' , 'string', 'max:255', 'unique:users'],
                 'password' => ['required', 'string','min:8'],
             ]);
 

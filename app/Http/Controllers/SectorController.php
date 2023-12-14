@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Sector;
+use App\Http\Resources\SectorResource;
+
 
 class SectorController extends Controller
 {

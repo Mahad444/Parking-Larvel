@@ -15,8 +15,8 @@ class UserController extends Controller
      {
             $request -> validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+                'password' => ['required', 'string', 'min:8'],
             ]);
 
             // user 
@@ -28,31 +28,32 @@ class UserController extends Controller
 
             // token
             return response()->json([
-                'token' => $user->createToken('auth_token')->plainTextToken,
-                'token_type' => 'Bearer',
+                'user' => $user,
+                'access_token' => $user->createToken('new_user')->plainTextToken,
             ]);    
 
         }
 
-        // auth
+        // auth login
         public function auth(Request $request)
         {
             $request->validate([
-                'email' => ['required', 'email' , 'string', 'max:255', 'unique:users'],
+                'email' => ['required', 'email' , 'string', 'max:255'],
                 'password' => ['required', 'string','min:8'],
             ]);
 
-            $user = User::whereEmail('email', $request->email)->first();
+            $user = User::where('email', $request->email)->first();
 
-            if (! $user || ! Hash::check($request->password, $user->password)) {
-                throw ValidationException::withMessages([
-                    'email' => ['The provided credentials are incorrect.'],
-                ]);
+            if(!$user || !Hash::check($request->password, $user->password)) 
+            {
+                return response()->json([
+                    'message' => 'Invalid credentials provided!!'
+                ], 401);
             }
 
             return response()->json([
-                'token' => $user->createToken('auth_token')->plainTextToken,
-                'token_type' => 'Bearer',
+                'user' => $user,
+                'access_token' => $user->createToken('new_user')->plainTextToken
             ]);
         }
 

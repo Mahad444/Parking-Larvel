@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+// import sector model
+use App\Models\Sector;
 
 return new class extends Migration
 {
@@ -17,6 +19,20 @@ return new class extends Migration
             $table->integer('hourly_price');
             $table->timestamps();
         });
+    
+    // adding a new sector table
+     Sector::create([
+        'name' => 'A',
+        'hourly_price' => 100,
+     ]);
+     Sector::create([
+        'name' => 'B',
+        'hourly_price' => 200,
+     ]);
+     Sector::create([
+        'name' => 'C',
+        'hourly_price' => 300,
+     ]);
     }
 
     /**

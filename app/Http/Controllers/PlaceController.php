@@ -6,6 +6,9 @@ use Carbon\Carbon;
 
 use App\Models\Place;
 
+// import 
+use App\Models\Sector;
+
 use Illuminate\Http\Request;
 
 use App\Http\Resources\PlaceResource;
@@ -64,7 +67,7 @@ class PlaceController extends Controller
     public function calculatePrice($sector_id, $start_time)
 
     {
-        $tart = Carbon::createMidnightDate($start_time);
+        $start = Carbon::createMidnightDate($start_time);
         $end = Carbon::createMidnightDate(now());
         $totalDuration = $start->diffInHours($end);
         $sector_hourly_price = Sector::find($sector_id)->hourly_price;

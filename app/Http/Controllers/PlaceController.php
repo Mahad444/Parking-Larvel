@@ -19,12 +19,15 @@ class PlaceController extends Controller
 
     public function startParking(Request $request, Place $place)
 
+
     {
-        $request -> validate([
-            'user_id' => ['required', 'integer']
+        
+        $request->validate([
+            'user_id' => ['required', 'exists:users,id']
         ]);
 
-        if ($place->where('user_id', $request->user_id)->whereNull('end_time')->exists()) {
+        if ($place->where('user_id', $request->user_id)->whereNull('end_time')->exists()) 
+        {
             return response()->json([
                 'error' => 'You already have an active parking session!!'
             ], 400);
@@ -73,7 +76,7 @@ class PlaceController extends Controller
         $sector_hourly_price = Sector::find($sector_id)->hourly_price;
 
 
-       if ($totalDuration > 1) {
+       if ($totalDuration >= 1) {
         return ceil($sector_hourly_price * $totalDuration);
        }
     //    OR

@@ -19,11 +19,10 @@ class PlaceController extends Controller
 
     public function startParking(Request $request, Place $place)
 
-
     {
         
         $request->validate([
-            'user_id' => ['required', 'exists:users,id']
+            'user_id' => ['required','integer']
         ]);
 
         if ($place->where('user_id', $request->user_id)->whereNull('end_time')->exists()) 

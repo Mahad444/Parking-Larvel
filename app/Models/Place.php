@@ -12,7 +12,7 @@ class Place extends Model
 
     protected $fillable = [ 'name' , 'available' , 'sector_id' , 'user_id' , 'start_time' , 'end_time' , 'total_price'];
 
-    protected $cats = [
+    protected $casts = [
         'start_time' => 'datetime',
         'end_time' => 'datetime'
     ];
@@ -29,10 +29,6 @@ class Place extends Model
         return $this->belongsTo(User::class);
     }
 
-    // adding relationship where a place has time bookings
-
-    public function getStartTimeAttribute($value){
-        return Carbon::parse($value)->format('Y-m-d\TH:i');
-    }
+   
 }
 

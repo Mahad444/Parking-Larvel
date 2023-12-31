@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Place;
 
 return new class extends Migration
 {
@@ -22,6 +23,15 @@ return new class extends Migration
             $table->integer('total_price')->nullable();
             $table->timestamps();
         });
+
+        for ($i = 1; $i <= 20; $i++) 
+        {
+         Place::create([
+            'name' => 'place' . $i,
+            'sector_id' => rand(1, 3),
+         ]);
+        
+        }
     }
 
     /**

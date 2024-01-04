@@ -22,7 +22,7 @@ class PlaceController extends Controller
     {
         
         $request->validate([
-            'user_id' => ['required','integer']
+            'user_id' => ['required','integer', 'exists:users,id']
         ]);
 
         if ($place->where('user_id', $request->user_id)->whereNull('end_time')->exists()) 

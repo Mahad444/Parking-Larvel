@@ -14,7 +14,7 @@ class Place extends Model
 
     protected $casts = [
         'start_time' => 'datetime',
-        'end_time' => 'datetime'
+        'end_time' => 'datetime' 
     ];
 
     // adding relationship where a place belongs to a sector
